@@ -1,0 +1,5 @@
+[package]
+name = "executor"
+version = "0.1.0"
+authors = ["Saladino Belisario <SaladinoBelisario@protonmail.ch>"]
+edition = "2021"

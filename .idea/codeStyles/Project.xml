@@ -1,0 +1,14 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <RsCodeStyleSettings>
+      <option name="ALIGN_WHERE_CLAUSE" value="true" />
+      <option name="ALIGN_TYPE_PARAMS" value="true" />
+    </RsCodeStyleSettings>
+    <ScalaCodeStyleSettings>
+      <option name="MULTILINE_STRING_CLOSING_QUOTES_ON_NEW_LINE" value="true" />
+    </ScalaCodeStyleSettings>
+    <codeStyleSettings language="Rust">
+      <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>

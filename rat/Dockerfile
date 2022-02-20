@@ -5,7 +5,7 @@ FROM rust:latest AS builder
 
 WORKDIR /ch_11
 
-COPY ./ .
+COPY .. .
 
 RUN cargo build -p server --release
 
