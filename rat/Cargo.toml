@@ -2,7 +2,6 @@
 
 members = [
     "agent",
-    "common",
 ]
 
 [profile.release]

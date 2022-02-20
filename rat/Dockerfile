@@ -1,39 +1,15 @@
-####################################################################################################
-## Builder
-####################################################################################################
-FROM rust:latest AS builder
+FROM ubuntu:latest
 
-WORKDIR /ch_11
+RUN apt update && apt -y upgrade
+RUN apt -y install openssh-server
 
-COPY .. .
+# authorize SSH connections to root account
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+RUN service ssh restart
 
-RUN cargo build -p server --release
+# change root password
+RUN echo "root:root" | chpasswd
 
-####################################################################################################
-## Final image
-####################################################################################################
-FROM debian:buster-slim
-
-# Create unprivileged user
-ENV USER=ch_11
-ENV UID=10001
-
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    "${USER}"
-
-
-WORKDIR /ch_11
-
-# Copy our build
-COPY --from=builder /ch_11/target/release/server ./
-
-# Use an unprivileged user
-USER ch_11:ch_11
-
-CMD ["/ch_11/server"]
+EXPOSE 22
+CMD  ["/usr/sbin/sshd", "-D"]

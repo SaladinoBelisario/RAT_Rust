@@ -1,25 +1,20 @@
-DOCKER_IMAGE = bhr_ch12_server:latest
+.PHONY: bundle
+bundle: x86_64 aarch64
+	rm -rf bundle.zip
+	zip -j bundle.zip target/agent.linux_x86_64 target/agent.linux_aarch64
 
-.PHONY: all
-all: agent
 
-.PHONY: agent
-agent: agent_linux agent_windows
-
-.PHONY: agent_linux
-agent_linux:
+.PHONY: x86_64
+x86_64:
 	cross build -p agent --release --target x86_64-unknown-linux-musl
+# strip -s target/x86_64-unknown-linux-musl/release/agent
+#	upx -9 target/x86_64-unknown-linux-musl/release/agent
+	mv target/x86_64-unknown-linux-musl/release/agent target/agent.linux_x86_64
 
 
-.PHONY: agent_windows
-agent_windows:
-	cross build -p agent --release --target x86_64-pc-windows-gnu
-
-
-.PHONY: fmt
-fmt:
-	cargo fmt
-
-.PHONY: check
-check:
-	cargo check
+.PHONY: aarch64
+aarch64:
+	cross build -p agent --release --target aarch64-unknown-linux-musl
+# strip -s target/aarch64-unknown-linux-musl/release/agent
+	upx -9 target/aarch64-unknown-linux-musl/release/agent
+	mv target/aarch64-unknown-linux-musl/release/agent target/agent.linux_aarch64

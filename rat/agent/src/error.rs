@@ -5,6 +5,8 @@ pub enum Error {
     Internal(String),
     Api(String),
     Io(std::io::Error),
+    Ssh(ssh2::Error),
+    Zip(zip::result::ZipError),
 }
 
 impl fmt::Display for Error {
@@ -21,38 +23,20 @@ impl std::convert::From<std::io::Error> for Error {
     }
 }
 
-impl std::convert::From<uuid::Error> for Error {
-    fn from(err: uuid::Error) -> Self {
-        Error::Internal(err.to_string())
-    }
-}
-
-impl std::convert::From<serde_json::Error> for Error {
-    fn from(err: serde_json::Error) -> Self {
-        Error::Internal(err.to_string())
-    }
-}
-
-impl std::convert::From<ed25519_dalek::SignatureError> for Error {
-    fn from(err: ed25519_dalek::SignatureError) -> Self {
-        Error::Internal(err.to_string())
-    }
-}
-
-impl std::convert::From<base64::DecodeError> for Error {
-    fn from(err: base64::DecodeError) -> Self {
-        Error::Internal(err.to_string())
-    }
-}
-
-impl std::convert::From<chacha20poly1305::aead::Error> for Error {
-    fn from(err: chacha20poly1305::aead::Error) -> Self {
-        Error::Internal(err.to_string())
-    }
-}
-
 impl std::convert::From<std::string::FromUtf8Error> for Error {
     fn from(err: std::string::FromUtf8Error) -> Self {
         Error::Internal(err.to_string())
+    }
+}
+
+impl std::convert::From<ssh2::Error> for Error {
+    fn from(err: ssh2::Error) -> Self {
+        Error::Ssh(err)
+    }
+}
+
+impl std::convert::From<zip::result::ZipError> for Error {
+    fn from(err: zip::result::ZipError) -> Self {
+        Error::Zip(err)
     }
 }
