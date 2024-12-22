@@ -4,7 +4,7 @@
 
 Rust Remote Access Tool with worm capabilities, this Remote Access Tool
 it's just a personal project with no other intentions than seek for knowledge, 
-it can be used for simple remote access with legitimate porpoises
+it can be used for simple remote access with legitimate purposes
 or to make Trojan access.
 
 ## Description:
